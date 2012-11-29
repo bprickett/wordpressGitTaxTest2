@@ -309,7 +309,7 @@ add_filter( 'attachment_link', 'toolbox_enhanced_image_navigation' );
  * This theme was built with PHP, Semantic HTML, CSS, love, and a Toolbox.
  */
 
-	// start custom post type code
+	// START BILLs custom PHOTOSET post type code
 
 	function custom_Photoset_init() {
 	  $labels = array(
@@ -349,9 +349,53 @@ add_filter( 'attachment_link', 'toolbox_enhanced_image_navigation' );
 	// happens every time somebody hits wordpress
 	add_action( 'init', 'custom_Photoset_init');
 	
-	// end custom post type code
+	// end BILLs custom PHOTOSET post type code
 	
-	// start custom Taxonomy code
+	// START BILLs custom xPHOTOSET post type code
+
+	function custom_xPhotoset_init() {
+	  $labels = array(
+	    'name' => _x('xMusic Sets', 'post type general name', 'your_text_domain'),
+	    'singular_name' => _x('xMusic Set', 'post type singular name', 'your_text_domain'),
+	    'add_new' => _x('Add New', 'xMusicset', 'your_text_domain'),
+	    'add_new_item' => __('Add New xMusic Set', 'your_text_domain'),
+	    'edit_item' => __('Edit xMusic Set', 'your_text_domain'),
+	    'new_item' => __('New xMusic Set', 'your_text_domain'),
+	    'all_items' => __('All xMusic Sets', 'your_text_domain'),
+	    'view_item' => __('View xMusic Set', 'your_text_domain'),
+	    'search_items' => __('Search xMusic Sets', 'your_text_domain'),
+	    'not_found' =>  __('No xMusic sets found', 'your_text_domain'),
+	    'not_found_in_trash' => __('No xMusic sets found in Trash', 'your_text_domain'), 
+	    'parent_item_colon' => '',
+	    'menu_name' => __('xMusic Sets', 'your_text_domain')
+
+	  );
+	  $args = array(
+	    'labels' => $labels,
+	    'public' => true,
+	    'publicly_queryable' => true,
+	    'show_ui' => true, 
+	    'show_in_menu' => true, 
+	    'query_var' => true,
+	    'rewrite' => array( 'slug' => _x( 'xphotoset', 'URL slug', 'your_text_domain' ) ),
+	    'capability_type' => 'post',
+	    'has_archive' => true, 
+	    'hierarchical' => false,
+	    'menu_position' => null,
+	    'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields' )
+	  ); 
+	  register_post_type('my_xphotosets', $args);
+	/* IMPORTIONT: Remember this line! */
+	    // flush_rewrite_rules( false );/* Please read "Update 2" before adding this line */
+	}
+	// happens every time somebody hits wordpress
+	add_action( 'init', 'custom_xPhotoset_init');
+	
+	// end BILLs custom xPHOTOSET post type code
+	
+
+	
+	// START BILLs custom PHOTOSET Taxonomy code
 	
 	function my_tags_taxonomies_photoset() {
 		// create a new taxonomy
@@ -366,7 +410,26 @@ add_filter( 'attachment_link', 'toolbox_enhanced_image_navigation' );
 	}
 	add_action( 'init', 'my_tags_taxonomies_photoset' );
 	
-	// END custom Taxonomy code
+	// END BILLs custom PHOTOSET Taxonomy code
+	
+	// START BILLs custom xPHOTOSET Taxonomy code
+	
+	function my_tags_taxonomies_xphotoset() {
+		// create a new taxonomy
+		register_taxonomy(
+			'xphotosettags',
+			'my_xphotosets',
+			array(
+				'label' => __( 'xMusic Set Tags' ),
+				'rewrite' => array( 'slug' => 'xphotosettags' )
+			)
+		);
+	}
+	add_action( 'init', 'my_tags_taxonomies_xphotoset' );
+	
+	// END BILLs custom xPHOTOSET Taxonomy code
+	
+	// START BILLs custom Catagory code
 	
 	function my_taxonomies_photoset() {
 	    $labels = array(
@@ -392,6 +455,35 @@ add_filter( 'attachment_link', 'toolbox_enhanced_image_navigation' );
 	add_action( 'init', 'my_taxonomies_photoset', 0 );
 	
 	
+	// END BILLs custom Catagory code
+	
+	// START BILLs custom xCatagory code
+	
+	function my_taxonomies_xphotoset() {
+	    $labels = array(
+	        'name'              => _x( 'Music Set Categories', 'taxonomy general name' ),
+	        'singular_name'     => _x( 'Music Set Category', 'taxonomy singular name' ),
+	        'search_items'      => __( 'Search Music Set Categories' ),
+	        'all_items'         => __( 'All Music Set Categories' ),
+	        'parent_item'       => __( 'Parent Music Set Category' ),
+	        'parent_item_colon' => __( 'Parent Music Set Category:' ),
+	        'edit_item'         => __( 'Edit Music Set Category' ),
+	        'update_item'       => __( 'Update Music Set Category' ),
+	        'add_new_item'      => __( 'Add New Music Set Category' ),
+	        'new_item_name'     => __( 'New Music Set Category' ),
+	        'menu_name'         => __( 'Music Set Categories' ),
+	    );
+	    $args = array(
+	        'labels' => $labels,
+			'show_in_nav_menus'=> true,
+	        'hierarchical' => true,
+	    );
+	    register_taxonomy( 'xphotoset_category', 'my_xphotosets', $args );
+	}
+	add_action( 'init', 'my_taxonomies_xphotoset', 0 );
+	
+	
+	// END BILLs custom Catagory code
 	
 	
 	
